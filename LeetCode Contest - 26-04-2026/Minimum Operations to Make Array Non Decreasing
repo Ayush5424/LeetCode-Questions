@@ -1,0 +1,19 @@
+class Solution {
+    public long minOperations(int[] nums) {
+        if(nums == null || nums.length <=1){
+            return 0;
+        }
+        long operations = 0;
+         long currentMax = nums[0];
+        long prevNeed  = 0;
+        for(int i = 1; i < nums.length; i++){
+            currentMax = Math.max(currentMax, nums[i]);
+            long diff = currentMax - nums[i];
+            if(diff > prevNeed){
+                operations += diff - prevNeed;
+            }
+            prevNeed = diff;
+        }
+        return operations;
+    }
+}
