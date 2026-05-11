@@ -1,0 +1,44 @@
+// leetcode 207
+
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+
+        ArrayList<Integer>[] graph = new ArrayList[numCourses];
+
+        for (int i = 0; i < numCourses; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        int[] indegree = new int[numCourses];
+
+        for (int[] pre : prerequisites) {
+            graph[pre[1]].add(pre[0]);
+            indegree[pre[0]]++;
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) {
+                q.add(i);
+            }
+        }
+
+        int count = 0;
+
+        while (!q.isEmpty()) {
+            int curr = q.poll();
+            count++;
+
+            for (int nei : graph[curr]) {
+                indegree[nei]--;
+
+                if (indegree[nei] == 0) {
+                    q.add(nei);
+                }
+            }
+        }
+
+        return count == numCourses;
+    }
+}
