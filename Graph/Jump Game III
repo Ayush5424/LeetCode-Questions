@@ -1,0 +1,41 @@
+import java.util.*;
+
+class Solution {
+    public boolean canReach(int[] arr, int start) {
+
+        Queue<Integer> queue = new LinkedList<>();
+        boolean[] visited = new boolean[arr.length];
+
+        // Start index
+        queue.offer(start);
+        visited[start] = true;
+
+        while (!queue.isEmpty()) {
+
+            int current = queue.poll();
+
+            // Found zero
+            if (arr[current] == 0) {
+                return true;
+            }
+
+            // Right jump
+            int right = current + arr[current];
+
+            if (right < arr.length && !visited[right]) {
+                queue.offer(right);
+                visited[right] = true;
+            }
+
+            // Left jump
+            int left = current - arr[current];
+
+            if (left >= 0 && !visited[left]) {
+                queue.offer(left);
+                visited[left] = true;
+            }
+        }
+
+        return false;
+    }
+}
