@@ -1,0 +1,22 @@
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        int sum = 0;
+
+        if(root == null){
+            return sum;
+        }
+
+
+        if(root.left != null && root.left.left == null && root.left.right == null){
+            sum += root.left.val;
+        }
+        
+
+        int lt = sumOfLeftLeaves(root.left);
+        int rt = sumOfLeftLeaves(root.right);
+
+        sum += (lt+rt);
+
+        return sum;
+    }
+}
