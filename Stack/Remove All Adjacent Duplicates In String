@@ -1,0 +1,28 @@
+class Solution {
+    public String removeDuplicates(String s) {
+        Stack<Character> s1 = new Stack<>();
+        StringBuffer sb = new StringBuffer();
+
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if(s1.isEmpty()){
+                s1.push(c);
+            }
+            else if(c != s1.peek()){
+                s1.push(c);
+            }
+                s1.pop();   
+        }
+        Stack<Character> rev = new Stack<>();
+        while(!s1.isEmpty()){
+            rev.push(s1.pop());
+        }
+
+        while(!rev.isEmpty()){
+            sb.append(rev.pop());
+        }
+
+        String res = sb.toString();
+        return res;
+    }
+}
