@@ -1,0 +1,22 @@
+class Solution {
+
+    public int getMinimumDifference(TreeNode root) {
+        List<Integer> val = new ArrayList<>();
+        inorder(root, val);
+        int min = Integer.MAX_VALUE;
+        for (int i = 1; i < val.size(); i++) {
+            min = Math.min(min, val.get(i) - val.get(i - 1));
+        }
+
+        return min;
+    }
+
+    public void inorder(TreeNode root, List<Integer> val) {
+        if (root == null) {
+            return;
+        }
+        inorder(root.left, val);
+        val.add(root.val);
+        inorder(root.right, val);
+    }
+}
