@@ -1,0 +1,18 @@
+class Solution {
+    public int maxProduct(int n) {
+        int largest = Integer.MIN_VALUE;
+        int second = Integer.MIN_VALUE;
+
+        while (n > 0) {
+            int rem = n % 10;
+            if (rem > largest) {
+                second = largest;
+                largest = rem;
+            } else if (rem > second) {
+                second = rem;
+            }
+            n = n / 10;
+        }
+        return largest * second;
+    }
+}
