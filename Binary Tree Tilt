@@ -1,0 +1,16 @@
+class Solution {
+        int sm = 0;
+    public int findTilt(TreeNode root) {
+        traverse(root);
+        return sm;
+    }
+    public int traverse(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        int leftSum = traverse(root.left);
+        int rightSum = traverse(root.right);
+        sm += Math.abs(rightSum - leftSum);
+        return root.val + leftSum + rightSum;
+    }
+}
