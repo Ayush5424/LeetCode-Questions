@@ -1,0 +1,32 @@
+class Solution {
+
+    public int smallestIndex(int[] nums) {
+
+        int n = nums.length;
+        int[] res = new int[n];
+
+        for(int x = 0; x < n; x++){
+            res[x] = nums[x];
+        }
+
+        int i = 0;
+
+        while(i < res.length){
+
+            int sum = 0;
+
+            while(res[i] > 0){
+                sum += res[i] % 10;
+                res[i] /= 10;
+            }
+
+            if(i == sum){
+                return i;
+            }
+
+            i++;
+        }
+
+        return -1;
+    }
+}
