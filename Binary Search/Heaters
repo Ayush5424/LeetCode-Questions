@@ -1,0 +1,44 @@
+class Solution {
+
+    public int findRadius(int[] houses, int[] heaters) {
+
+        Arrays.sort(houses);
+        Arrays.sort(heaters);
+
+        int radius = 0;
+
+        for (int house : houses) {
+
+            int left = 0;
+            int right = heaters.length - 1;
+
+            while (left <= right) {
+
+                int mid = left + (right - left) / 2;
+
+                if (heaters[mid] < house) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+
+            int distance1 = Integer.MAX_VALUE;
+            int distance2 = Integer.MAX_VALUE;
+
+            if (left < heaters.length) {
+                distance1 = Math.abs(heaters[left] - house);
+            }
+
+            if (right >= 0) {
+                distance2 = Math.abs(heaters[right] - house);
+            }
+
+            int closest = Math.min(distance1, distance2);
+
+            radius = Math.max(radius, closest);
+        }
+
+        return radius;
+    }
+}
