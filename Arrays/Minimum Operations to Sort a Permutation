@@ -1,0 +1,48 @@
+class Solution {
+    public int minOperations(int[] nums) {
+        int n = nums.length;
+        if (n <= 1) return 0;
+
+        int pos0 = -1, posN1 = -1;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == 0) pos0 = i;
+            if (nums[i] == n - 1) posN1 = i;
+        }
+        
+        int ans = Integer.MAX_VALUE;
+        boolean isIncreasing = true;
+        for (int i = 0; i < n; i++) {
+            if (nums[(pos0 + i) % n] != i) {
+                isIncreasing = false;
+                break;
+            }
+        }
+        
+        if (isIncreasing) {
+
+            ans = Math.min(ans, pos0);
+            int costB = 2 + (n - pos0) % n;
+            ans = Math.min(ans, costB);
+        }
+        
+        boolean isDecreasing = true;
+        for (int i = 0; i < n; i++) {
+            if (nums[(posN1 + i) % n] != n - 1 - i) {
+                isDecreasing = false;
+                break;
+            }
+        }
+        
+        if (isDecreasing) {
+
+            int revPos0 = (n - 1 - pos0) % n;
+            int costA = 1 + revPos0;
+            ans = Math.min(ans, costA);
+
+            int costB = 1 + posN1;  
+            ans = Math.min(ans, posN1 + 1);
+        }
+        
+        return ans == Integer.MAX_VALUE ? -1 : ans;
+    }
+}
